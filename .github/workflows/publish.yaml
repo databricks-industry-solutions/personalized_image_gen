@@ -2,7 +2,7 @@ name: publish
 
 env:
   DB_PROFILES: ${{ secrets.DB_PROFILES }}
-  
+
 on:
   workflow_dispatch:
     inputs:
@@ -14,6 +14,14 @@ on:
         type: string
         description: 'Repository path on databricks environment'
         required: true
+      split_markdown:
+        description: 'Splitting HTML by markdown'
+        type: choice
+        required: true
+        default: 'false'
+        options:
+          - 'true'
+          - 'false'
 
 permissions:
   contents: read
@@ -26,7 +34,7 @@ concurrency:
 
 jobs:
   release:
-    runs-on: html_publisher
+    runs-on: ubuntu-latest
     steps:
 
       - name: Checkout project
@@ -60,6 +68,7 @@ jobs:
             db_token=config['token'],
             db_path='${{ github.event.inputs.db_path }}',
             db_name='${{ github.event.repository.name }}',
+            markdown='${{ github.event.inputs.split_markdown == true || github.event.inputs.split_markdown == 'true' }}',
           ).release()
 
         shell: python
