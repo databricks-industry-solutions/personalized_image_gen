@@ -20,12 +20,8 @@
 
 # COMMAND ----------
 
-# MAGIC %md #LINK TO GITHUB LOCATION NEEDED
-
-# COMMAND ----------
-
 # MAGIC %md
-# MAGIC This solution accelerator uses 25 training images stored in the subfolders of ```/images/chair/``` to fine-tune a model. If you have imported this accelerator from GitHub, the images should already be in place.  If you simply downloaded the notebooks, you will need to create the folder structure in your workspace and import the images from **THIS LOCATION** for the following cells to work without modification.
+# MAGIC This solution accelerator uses 25 training images stored in the subfolders of ```/images/chair/``` to fine-tune a model. If you have imported this accelerator from GitHub, the images should already be in place.  If you simply downloaded the notebooks, you will need to create the folder structure in your workspace and import the images from https://github.com/databricks-industry-solutions/personalized_image_gen for the following cells to work without modification.
 
 # COMMAND ----------
 
