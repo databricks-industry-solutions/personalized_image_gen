@@ -22,7 +22,7 @@
 # COMMAND ----------
 
 # DBTITLE 1,Install requirements and load helper functions
-# MAGIC %run ./utils
+# MAGIC %run ./99_utils
 
 # COMMAND ----------
 
