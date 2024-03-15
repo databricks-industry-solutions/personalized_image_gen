@@ -1,6 +1,6 @@
 # Databricks notebook source
 # Installing requirement libraries
-%pip install -r ../requirements.txt --quiet
+%pip install -r ./requirements.txt --quiet
 dbutils.library.restartPython()
 
 # COMMAND ----------

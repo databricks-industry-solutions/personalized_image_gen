@@ -20,8 +20,12 @@
 
 # COMMAND ----------
 
+# MAGIC %md #LINK TO GITHUB LOCATION NEEDED
+
+# COMMAND ----------
+
 # MAGIC %md
-# MAGIC This solution accelerator uses 25 training images stored in the subfolders of ```/images/chair/``` to fine-tune a model. We copy the images to Unity Catalog (UC) and managed them as volume files. **To adapt this solution to your use case, you can directly upload your images in UC volumes.**
+# MAGIC This solution accelerator uses 25 training images stored in the subfolders of ```/images/chair/``` to fine-tune a model. If you have imported this accelerator from GitHub, the images should already be in place.  If you simply downloaded the notebooks, you will need to create the folder structure in your workspace and import the images from **THIS LOCATION** for the following cells to work without modification.
 
 # COMMAND ----------
 
@@ -41,10 +45,10 @@ import os
 import subprocess
 
 # Create volumes under the schma, and copy the training images into it 
-for volume in os.listdir("../images/chair"):
+for volume in os.listdir("./images/chair"):
   volume_name = f"{catalog}.{theme}.{volume}"
   spark.sql(f"CREATE VOLUME IF NOT EXISTS {volume_name}")
-  command = f"cp ../images/chair/{volume}/*.jpg /Volumes/{catalog}/{theme}/{volume}/"
+  command = f"cp ./images/chair/{volume}/*.jpg /Volumes/{catalog}/{theme}/{volume}/"
   process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
   output, error = process.communicate()
   if error:

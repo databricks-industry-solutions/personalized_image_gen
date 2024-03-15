@@ -124,7 +124,7 @@ pipe = pipe.to(device)
 import os
 import glob
 
-types = os.listdir("../images/chair")
+types = os.listdir("./images/chair")
 num_imgs_to_preview = len(types)
 imgs = []
 for type in types:
