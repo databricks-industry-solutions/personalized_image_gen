@@ -65,6 +65,10 @@ _ = spark.sql(f"CREATE VOLUME IF NOT EXISTS {catalog}.{theme}.adaptor")
 
 # COMMAND ----------
 
+# MAGIC %md The following training cell should run for about 15 minutes on a single node cluster with 8xA10GPU instances on the default training images. 
+
+# COMMAND ----------
+
 # MAGIC %sh accelerate launch --config_file ../yamls/zero2.yaml ../personalized_image_generation/train_dreambooth_lora_sdxl.py \
 # MAGIC   --pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0" \
 # MAGIC   --pretrained_vae_model_name_or_path="madebyollin/sdxl-vae-fp16-fix" \
