@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC This solution accelerator notebook is available at [Databricks Industry Solutions](https://github.com/databricks-industry-solutions).
+# MAGIC This solution accelerator notebook is available at [Databricks Industry Solutions](https://github.com/databricks-industry-solutions/personalized_image_gen).
 
 # COMMAND ----------
 
@@ -235,10 +235,7 @@ token = (
     .apiToken()
     .getOrElse(None)
 )
-theme = "chair"
-catalog = "sdxl_image_gen"
-model_name = f"{catalog}.model.sdxl-fine-tuned-{theme}"  # an existing model in model registry, may have multiple versions
-model_serving_endpoint_name = f"sdxl-fine-tuned-{theme}"
+
 java_tags = dbutils.notebook.entry_point.getDbutils().notebook().getContext().tags()
 tags = sc._jvm.scala.collection.JavaConversions.mapAsJavaMap(java_tags)
 instance = tags["browserHostName"]

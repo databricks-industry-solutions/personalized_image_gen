@@ -1,7 +1,7 @@
 PyYAML==5.4.1
 databricks-api==0.6.0
 boto3==1.18.45
-transformers==4.37.2
+transformers==4.38.0
 bitsandbytes==0.42.0
 accelerate==0.27.0
 deepspeed==0.12.4
