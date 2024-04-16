@@ -42,7 +42,7 @@ To get started, simply clone this repository to your Databricks Repos and run th
 Note that DreamBooth is sensitive to hyperparameters, and it is known to easily overfit. For detailed explanation of the limitations and how to deal with them, read the original [paper](https://arxiv.org/abs/2208.12242) or this [blog post](https://huggingface.co/blog/dreambooth). 
 
 ## Reference Architecture
-<img src='https://github.com/databricks-industry-solutions/product-search/raw/main/images/architecture/architecture.png' width=800>
+<img src='https://github.com/databricks-industry-solutions/personalized_image_gen/blob/main/images/architecture/architecture.png' width=800>
 
 ## Authors
 <ryuta.yoshimatsu@databricks.com>
