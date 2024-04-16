@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC This solution accelerator notebook is available at [Databricks Industry Solutions](https://github.com/databricks-industry-solutions).
+# MAGIC This solution accelerator notebook is available at [Databricks Industry Solutions](https://github.com/databricks-industry-solutions/personalized_image_gen).
 
 # COMMAND ----------
 
@@ -53,7 +53,7 @@ pipe.to(device)
 
 prompt = "A photo of a brown leather chair in a living room."
 image = pipe(prompt=prompt).images[0]
-show_image(image) # This function is defined in utils notebook
+show_image(image) # This function is defined in 99_utils notebook
 
 # COMMAND ----------
 

@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC This solution accelerator notebook is available at [Databricks Industry Solutions](https://github.com/databricks-industry-solutions).
+# MAGIC This solution accelerator notebook is available at [Databricks Industry Solutions](https://github.com/databricks-industry-solutions/personalized_image_gen).
 
 # COMMAND ----------
 
@@ -61,15 +61,15 @@ _ = spark.sql(f"CREATE VOLUME IF NOT EXISTS {catalog}.{theme}.adaptor")
 # MAGIC Other parameters:
 # MAGIC * Use `--output_dir` to specify your LoRA model repository name.
 # MAGIC * Use `--caption_column` to specify name of the caption column in your dataset.
-# MAGIC * Make sure to pass the right number of GPUs to the parameter `num_processes` in `yamls/zero2.yaml`.
+# MAGIC * Make sure to pass the right number of GPUs to the parameter `num_processes` in `yamls/zero2.yaml`: e.g. `num_processes` should be 8 for `g5.48xlarge`.
+# MAGIC <br>
+# MAGIC
+# MAGIC
+# MAGIC The following cell will run for about 15 minutes on a single node cluster with 8xA10GPU instances on the default training images. 
 
 # COMMAND ----------
 
-# MAGIC %md The following training cell should run for about 15 minutes on a single node cluster with 8xA10GPU instances on the default training images. 
-
-# COMMAND ----------
-
-# MAGIC %sh accelerate launch --config_file ../yamls/zero2.yaml ../personalized_image_generation/train_dreambooth_lora_sdxl.py \
+# MAGIC %sh accelerate launch --config_file yamls/zero2.yaml personalized_image_generation/train_dreambooth_lora_sdxl.py \
 # MAGIC   --pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0" \
 # MAGIC   --pretrained_vae_model_name_or_path="madebyollin/sdxl-vae-fp16-fix" \
 # MAGIC   --dataset_name=$DATASET_NAME \
@@ -106,9 +106,6 @@ _ = spark.sql(f"CREATE VOLUME IF NOT EXISTS {catalog}.{theme}.adaptor")
 from diffusers import DiffusionPipeline, AutoencoderKL
 import torch
 
-theme = "chair"
-catalog = "sdxl_image_gen"
-volumes_dir = "/Volumes/sdxl_image_gen"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 vae = AutoencoderKL.from_pretrained(
     "madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16
@@ -192,9 +189,6 @@ class sdxl_fine_tuned(mlflow.pyfunc.PythonModel):
 
 # COMMAND ----------
 
-theme = "chair"
-catalog = "sdxl_image_gen"
-volumes_dir = "/Volumes/sdxl_image_gen"
 vae_name = "madebyollin/sdxl-vae-fp16-fix"
 model_name = "stabilityai/stable-diffusion-xl-base-1.0"
 output = f"{volumes_dir}/{theme}/adaptor/pytorch_lora_weights.safetensors"
@@ -261,7 +255,7 @@ result = mlflow.register_model(
 
 # MAGIC %md
 # MAGIC ## Load the registered model back to make inference
-# MAGIC If you come accross an out of memory issue, restart the Python kernel to release the GPU memory occupied in Training. For uncomment and run the following cell.
+# MAGIC If you come accross an out of memory issue, restart the Python kernel to release the GPU memory occupied in Training. For this, uncomment and run the following cell, and re-define the variables such as ```theme```, ```catalog```, and ```volume_dir```.
 
 # COMMAND ----------
 
@@ -287,9 +281,6 @@ import pandas as pd
 mlflow.set_registry_uri("databricks-uc")
 mlflow_client = MlflowClient()
 
-theme = "chair"
-catalog = "sdxl_image_gen"
-volumes_dir = "/Volumes/sdxl_image_gen"
 registered_name = f"{catalog}.model.sdxl-fine-tuned-{theme}"
 model_version = get_latest_model_version(mlflow_client, registered_name)
 logged_model = f"models:/{registered_name}/{model_version}"
