@@ -37,7 +37,7 @@ The third notebook, [03_fine_tuning](https://github.com/databricks-industry-solu
  
 The final notebook, [04_deploy_model](https://github.com/databricks-industry-solutions/personalized_image_gen/blob/main/04_deploy_model.py), takes the model registered in Unity Catalog and deploys it behind Databricks Mosaic AI Model Serving endpoint. This allows end users to send an image generation request and get the results back in real time via Rest API.  
 
-To get started, simply clone this repository to your Databricks Repos and run the notebooks in the right sequence. For the compute, we recommend a single node cluster with multiple A10 or A100 GPU instances (see the first notebook for more details). In order to use your own images for fine tuning, follow the instructions in the notebook, 01_preprocessing. 
+To get started, simply clone this repository to your Databricks Repos and run the notebooks in the right sequence. For the compute, we recommend a single node cluster with multiple A10 or A100 GPU instances (see the second notebook for more details). In order to use your own images for fine tuning, follow the instructions in the notebook, 02_data_prep. 
 
 Note that DreamBooth is sensitive to hyperparameters, and it is known to easily overfit. For detailed explanation of the limitations and how to deal with them, read the original [paper](https://arxiv.org/abs/2208.12242) or this [blog post](https://huggingface.co/blog/dreambooth). 
 
