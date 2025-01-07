@@ -228,6 +228,7 @@ with mlflow.start_run() as run:
             "accelerate==" + accelerate.__version__,
             "deepspeed==" + deepspeed.__version__,
             "diffusers==" + diffusers.__version__,
+            "huggingface-hub==0.25.2",
         ],
         input_example=input_example,
         signature=signature,

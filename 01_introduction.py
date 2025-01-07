@@ -16,7 +16,7 @@
 # MAGIC ## Cluster configuration
 # MAGIC We recommend using a cluster with the following specifications to run this solution accelerator:
 # MAGIC - Unity Catalog enabled cluster 
-# MAGIC - Databricks Runtime 14.3LTS ML or above
+# MAGIC - Databricks Runtime 15.4LTS ML or above
 # MAGIC - Single-node multi-GPU cluster: e.g. `g5.48xlarge` on AWS or `Standard_NC48ads_A100_v4` on Azure Databricks.
 
 # COMMAND ----------
