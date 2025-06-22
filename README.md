@@ -44,7 +44,7 @@ Note that DreamBooth is sensitive to hyperparameters, and it is known to easily 
 ## Reference Architecture
 <img src='https://github.com/databricks-industry-solutions/personalized_image_gen/blob/main/images/architecture/architecture.png' width=800>
 
-## Authors
+## Author
 <ryuta.yoshimatsu@databricks.com>
 
 ## Project support 
