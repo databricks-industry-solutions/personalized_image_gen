@@ -741,21 +741,28 @@ class DreamBoothDataset(Dataset):
         # we load the training data using load_dataset
         if args.dataset_name is not None:
             try:
-                from datasets import load_dataset
+                from datasets import load_dataset, load_from_disk
             except ImportError:
                 raise ImportError(
                     "You are trying to load your data using the datasets library. If you wish to train using custom "
                     "captions please install the datasets library: `pip install datasets`. If you wish to load a "
                     "local folder containing images only, specify --instance_data_dir instead."
                 )
-            # Downloading and loading a dataset from the hub.
-            # See more about loading custom images at
-            # https://huggingface.co/docs/datasets/v2.0.0/en/dataset_script
-            dataset = load_dataset(
-                args.dataset_name,
-                args.dataset_config_name,
-                cache_dir=args.cache_dir,
-            )
+            # Try loading from disk first (for datasets saved with save_to_disk),
+            # then fall back to load_dataset for Hub datasets or local scripts.
+            try:
+                _ds = load_from_disk(args.dataset_name)
+                # load_from_disk returns a Dataset; wrap it so the code below
+                # can access dataset["train"] uniformly.
+                from datasets import DatasetDict
+
+                dataset = DatasetDict({"train": _ds}) if not isinstance(_ds, DatasetDict) else _ds
+            except FileNotFoundError:
+                dataset = load_dataset(
+                    args.dataset_name,
+                    args.dataset_config_name,
+                    cache_dir=args.cache_dir,
+                )
             # Preprocessing the datasets.
             column_names = dataset["train"].column_names
 
